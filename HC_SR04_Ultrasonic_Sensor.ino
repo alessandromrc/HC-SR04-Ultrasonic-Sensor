@@ -33,7 +33,7 @@ enum SensorStatus {
 SensorStatus sensorStatus = TRIG_LOW;
 
 bool isTimerReady(const unsigned long Sec) {
-  return (millis() - timerStart) < Sec;
+  return (micros() - timerStart) < Sec;
 }
 
 void setup(void) {
@@ -46,7 +46,7 @@ void loop(void) {
   switch (sensorStatus) {
   case TRIG_LOW: {
     digitalWrite(trigPin, LOW);
-    timerStart = millis();
+    timerStart = micros();
     if (isTimerReady(LOW_TRIGGER)) {
       sensorStatus = TRIG_HIGH;
     }
@@ -55,7 +55,7 @@ void loop(void) {
 
   case TRIG_HIGH: {
     digitalWrite(trigPin, HIGH);
-    timerStart = millis();
+    timerStart = micros();
     if (isTimerReady(HIGH_TRIGGER)) {
       sensorStatus = ECHO_HIGH;
     }
